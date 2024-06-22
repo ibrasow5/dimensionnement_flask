@@ -6,12 +6,26 @@
     <title>Carte interactive</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <style>
-        #map { height: 400px; }
+        #map { 
+            height: 400px;
+        }
+
+        button#valider {
+            padding: 10px 20px;
+            background-color: #2980B9;
+            color: #ECF0F1;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            
+        }
     </style>
 </head>
 <body>
     <div id="map"></div>
-    <button onclick="validate()">Valider</button>
+    <button id="valider" onclick="validate()">Valider</button>
 
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script>

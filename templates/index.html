@@ -36,93 +36,97 @@
         </div>
 
         <button onclick="calculatePower()">Calculer</button>
-        <button onclick="openMap()">Ouvrir la carte</button>
+        <button id="pdf-button">Générer le PDF</button>
 
         <div id="result"></div>
         <!-- <div id="graph"></div> Commenté temporairement pour se concentrer sur le résultat -->
 
         <div id="pdf"></div>
-
-        <script>
-            function calculatePower() {
-                var Pt = document.getElementById("pt").value;
-                var d = document.getElementById("dist").value;
-                var f = document.getElementById("freq").value;
-                var Le = document.getElementById("le").value;
-                var Gt = document.getElementById("gt").value;
-                var Gr = document.getElementById("gr").value;
-
-                var data = JSON.stringify({
-                    'Pt': Pt,
-                    'd': d,
-                    'f': f,
-                    'Le': Le,
-                    'Gt': Gt,
-                    'Gr': Gr
-                });
-
-                fetch('/calculate_power', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: data
-                })
-                .then(response => response.json())
-                .then(data => {
-                    var powerReceived = data['Pr'];
-                    var resultDiv = document.getElementById('result');
-                    resultDiv.innerHTML = '<p>Puissance reçue : ' + powerReceived.toFixed(2) + ' dBm</p>';
-                })
-                .catch(error => {
-                    console.error('Erreur lors du calcul de la puissance:', error);
-                });
-            }
-
-            function openMap() {
-                window.open('/open_map', 'map', 'width=800,height=600');
-            }
-
-            function updateDistance(distance_km) {
-                document.getElementById("dist").value = distance_km;
-            }
-
-            function generatePDF() {
-                var Pt = document.getElementById("pt").value;
-                var d = document.getElementById("dist").value;
-                var f = document.getElementById("freq").value;
-                var Le = document.getElementById("le").value;
-                var Gt = document.getElementById("gt").value;
-                var Gr = document.getElementById("gr").value;
-
-                var data = JSON.stringify({
-                    'Pt': Pt,
-                    'd': d,
-                    'f': f,
-                    'Le': Le,
-                    'Gt': Gt,
-                    'Gr': Gr,
-                    'Pr': document.getElementById("result").textContent
-                });
-
-                fetch('/generate_pdf', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: data
-                })
-                .then(response => response.blob())
-                .then(blob => {
-                    var objectUrl = URL.createObjectURL(blob);
-                    var link = document.createElement('a');
-                    link.href = objectUrl;
-                    link.download = 'rapport.pdf';
-                    link.textContent = 'Télécharger le rapport PDF';
-                    document.getElementById("pdf").appendChild(link);
-                });
-            }
-        </script>
     </div>
+
+    <div id="map-button">
+        <button onclick="openMap()">Ouvrir la carte</button>
+    </div>
+
+    <script>
+        function calculatePower() {
+            var Pt = document.getElementById("pt").value;
+            var d = document.getElementById("dist").value;
+            var f = document.getElementById("freq").value;
+            var Le = document.getElementById("le").value;
+            var Gt = document.getElementById("gt").value;
+            var Gr = document.getElementById("gr").value;
+
+            var data = JSON.stringify({
+                'Pt': Pt,
+                'd': d,
+                'f': f,
+                'Le': Le,
+                'Gt': Gt,
+                'Gr': Gr
+            });
+
+            fetch('/calculate_power', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: data
+            })
+            .then(response => response.json())
+            .then(data => {
+                var powerReceived = data['Pr'];
+                var resultDiv = document.getElementById('result');
+                resultDiv.innerHTML = '<p>Puissance reçue : ' + powerReceived.toFixed(2) + ' dBm</p>';
+            })
+            .catch(error => {
+                console.error('Erreur lors du calcul de la puissance:', error);
+            });
+        }
+
+        function openMap() {
+            window.open('/open_map', 'map', 'width=800,height=450');
+        }
+
+        function updateDistance(distance_km) {
+            document.getElementById("dist").value = distance_km;
+        }
+
+        function generatePDF() {
+            var Pt = document.getElementById("pt").value;
+            var d = document.getElementById("dist").value;
+            var f = document.getElementById("freq").value;
+            var Le = document.getElementById("le").value;
+            var Gt = document.getElementById("gt").value;
+            var Gr = document.getElementById("gr").value;
+
+            var data = JSON.stringify({
+                'Pt': Pt,
+                'd': d,
+                'f': f,
+                'Le': Le,
+                'Gt': Gt,
+                'Gr': Gr,
+                'Pr': document.getElementById("result").textContent
+            });
+
+            fetch('/generate_pdf', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: data
+            })
+            .then(response => response.blob())
+            .then(blob => {
+                var objectUrl = URL.createObjectURL(blob);
+                var link = document.createElement('a');
+                link.href = objectUrl;
+                link.download = 'rapport.pdf';
+                link.textContent = 'Télécharger le rapport PDF';
+                document.getElementById("pdf").appendChild(link);
+            });
+        }
+    </script>
 </body>
 </html>

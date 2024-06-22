@@ -1,73 +1,98 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f2f2f2;
+/* Reset des marges et paddings par défaut */
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
+/* Style pour le body */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #778899;
+    color: #ECF0F1;
+}
+
+/* Container principal */
 .container {
-    max-width: 800px;
+    width: 30%;
     margin: 20px auto;
     padding: 20px;
-    background-color: #fff;
+    background-color: #34495E;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+/* Titre */
 h1 {
     text-align: center;
-    color: #333;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #ECF0F1;
 }
 
+/* Groupes d'entrées */
 .input-group {
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 }
 
 .input-group label {
     display: block;
-    margin-bottom: 5px;
     font-weight: bold;
+    margin-bottom: 5px;
 }
 
 .input-group input {
     width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
+    padding: 10px;
+    background-color: #DCDCDC;
+    border: 1px solid #34495E;
     border-radius: 4px;
-    box-sizing: border-box;
+    color: #000000;
 }
 
+/* Boutons */
 button {
-    background-color: #4CAF50;
-    color: white;
     padding: 10px 20px;
+    background-color: #2980B9;
+    color: #ECF0F1;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    margin-top: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    margin-left: 15%;
 }
 
-button:hover {
-    background-color: #45a049;
+button#pdf-button {
+    background-color: #27AE60;
+    margin-left: 10px;
 }
 
-.pdf-container {
-    margin-top: 20px;
-}
-
-.pdf-container iframe {
-    border: 1px solid #ddd;
-    border-radius: 4px;
-}
-
-a {
-    display: block;
-    margin-top: 20px;
+/* Résultat */
+#result {
     text-align: center;
-    color: #333;
-    text-decoration: none;
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #ECF0F1;
 }
 
-a:hover {
-    text-decoration: underline;
+/* PDF */
+#pdf {
+    text-align: center;
+    margin-top: 20px;
 }
+
+/* Bouton pour ouvrir la carte */
+#map-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+/* Alignement à droite */
+.right {
+    text-align: right;
+}
+
