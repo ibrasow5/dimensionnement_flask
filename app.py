@@ -1,3 +1,5 @@
+# app.py
+
 from flask import Flask, render_template, request, jsonify, send_file
 import math
 import matplotlib.pyplot as plt
@@ -59,15 +61,11 @@ def calculate_power():
     Gr = float(data['Gr'])
     
     distances = [i for i in range(1, int(d) + 1)]
-    puissances_recues = []
-    for dist in distances:
-        lp_db = 20 * (math.log10(dist) + math.log10(f)) + 32.44
-        Pr = Pt + Gt + Gr - lp_db - Le
-        puissances_recues.append(Pr)
-    
-    # Générer le graphique et le renvoyer en tant qu'image
-    img = generate_plot(distances, puissances_recues)
-    return send_file(img, mimetype='image/png')
+    lp_db = 20 * (math.log10(distances[-1]) + math.log10(f)) + 32.44
+    Pr = Pt + Gt + Gr - lp_db - Le
+
+    return jsonify({'Pr': Pr})
+
 
 # Fonction pour générer le graphique de puissance reçue
 def generate_plot(distances, puissances_recues):
@@ -80,7 +78,7 @@ def generate_plot(distances, puissances_recues):
     
     # Convertir le graphique en image BytesIO pour l'envoi
     img = BytesIO()
-    plt.savefig(img)
+    plt.savefig(img, format='png')
     img.seek(0)
     plt.close()
     
@@ -147,4 +145,3 @@ def generate_report(Pt, d, f, Le, Gt, Gr, Pr):
 
 if __name__ == '__main__':
     app.run(debug=True)
-

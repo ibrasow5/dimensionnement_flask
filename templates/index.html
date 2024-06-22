@@ -39,7 +39,8 @@
         <button onclick="openMap()">Ouvrir la carte</button>
 
         <div id="result"></div>
-        <div id="graph"></div>
+        <!-- <div id="graph"></div> Commenté temporairement pour se concentrer sur le résultat -->
+
         <div id="pdf"></div>
 
         <script>
@@ -67,10 +68,14 @@
                     },
                     body: data
                 })
-                .then(response => response.blob())
-                .then(blob => {
-                    var objectUrl = URL.createObjectURL(blob);
-                    document.getElementById("graph").innerHTML = '<img src="' + objectUrl + '" alt="Graphique">';
+                .then(response => response.json())
+                .then(data => {
+                    var powerReceived = data['Pr'];
+                    var resultDiv = document.getElementById('result');
+                    resultDiv.innerHTML = '<p>Puissance reçue : ' + powerReceived.toFixed(2) + ' dBm</p>';
+                })
+                .catch(error => {
+                    console.error('Erreur lors du calcul de la puissance:', error);
                 });
             }
 
@@ -121,4 +126,3 @@
     </div>
 </body>
 </html>
-
