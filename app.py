@@ -1,5 +1,3 @@
-# app.py
-
 from flask import Flask, render_template, request, jsonify, send_file
 import math
 import matplotlib.pyplot as plt
